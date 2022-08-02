@@ -15,7 +15,7 @@ void AddContact(C* con)
 {
 	if (con->size == Max)
 	{
-		pirntf("通讯录已满。\n");
+		printf("通讯录已满。\n");
 	}
 	else
 	{
@@ -48,10 +48,56 @@ void ShowContact(const C* con)
 	}
 	else
 	{
-		printf("姓名：%s\n", con->date[con->size].name);
-		printf("性别：%s\n", con->date[con->size].sex);
-		printf("年龄：%d\n", con->date[con->size].age);
-		printf("电话：%s\n", con->date[con->size].tele);
-		printf("住址：%s\n", con->date[con->size].addr);
+		int i = 0;
+		for (i = 0; i < con->size; i++)
+		{
+			printf("姓名：%s\n", con->date[i].name);
+			printf("性别：%s\n", con->date[i].sex);
+			printf("年龄：%d\n", con->date[i].age);
+			printf("电话：%s\n", con->date[i].tele);
+			printf("住址：%s\n\n", con->date[i].addr);
+		}
 	}
+}
+
+//删除规定姓名的成员信息
+void DelContact(C* con)
+{
+	int i = 0;
+	char search_name[Max_name] = "0";
+	printf("请输入需要删除的成员姓名:>");
+	scanf("%s", search_name);
+	//寻找
+	for (i = 0; i < con->size; i++)
+	{
+		if (strcmp(con->date[i].name, search_name) == 0)
+		{
+			//memset(con->date[i], 0, sizeof(con->date[i]));
+			break;
+		}
+	}
+	//删除
+	if (i == con->size)
+	{
+		printf("通讯录中不存在该成员！\n");
+	}
+	else
+	{
+		int j = 0;
+		for (j = i; j < con->size - 1; j++)
+		{
+			con->date[j] = con->date[j + 1];
+		}
+		con->size--;
+		printf("删除成功！\n");
+	}
+}
+
+
+//查找成员
+void Searchcontact(const C* con)
+{
+	assert(con != NULL);
+
+	printf("请选择查找的方式:>");
 }

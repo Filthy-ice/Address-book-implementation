@@ -19,7 +19,7 @@ void menu()
 	printf("******     5.show     6.sort    ******\n");
 	printf("******                0.exit    ******\n");
 	printf("**************************************\n");
-}
+}//但是上下翻动写代码觉得有点麻烦，所以我们改为.h里用枚举列举出来。
 
 int main()
 {
@@ -35,19 +35,24 @@ int main()
 		scanf("%d", &input);
 		switch (input)
 		{
-		case 1:
+		case ADD:
 			AddContact(&con);
 			break;
-		case 2:
+		case DEL:
+			DelContact(&con);
 			break;
-		case 3:
+		case SEARCH:
+			SearchContact(&con);
 			break;
-		case 4:
+		case MODIFY:
 			break;
-		case 5:
+		case SHOW:
 			ShowContact(&con);
 			break;
-		case 0:
+		case SORT:
+			//SortContact(&con);
+			break;
+		case EXIT:
 			printf("退出通讯录。\n");
 			break;
 		default:

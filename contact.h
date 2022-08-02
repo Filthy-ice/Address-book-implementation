@@ -3,6 +3,7 @@
 
 #include <stdio.h>
 #include <string.h>
+#include <assert.h>
 
 
 #define Max 1000
@@ -12,6 +13,18 @@
 #define Max_sex 5
 #define Max_tele 12
 #define Max_addr 40
+
+//菜单
+enum Option
+{
+	EXIT,
+	ADD,
+	DEL,
+	SEARCH,
+	MODIFY,
+	SHOW,
+	SORT
+};
 
 //单个成员类型
 typedef struct PeoInfo
@@ -35,3 +48,5 @@ typedef struct Contact
 void InitContact(C* con);
 void AddContact(C* con);
 void ShowContact(const C* con);
+void DelContact(C* con);
+void SearchContact(C* con);
