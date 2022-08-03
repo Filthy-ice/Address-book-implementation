@@ -45,12 +45,13 @@ int main()
 			SearchContact(&con);
 			break;
 		case MODIFY:
+			ModifyContact(&con);
 			break;
 		case SHOW:
 			ShowContact(&con);
 			break;
 		case SORT:
-			//SortContact(&con);
+			SortContact(&con);
 			break;
 		case EXIT:
 			printf("ÍË³öÍ¨Ñ¶Â¼¡£\n");

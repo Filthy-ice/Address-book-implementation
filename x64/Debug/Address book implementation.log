@@ -1,1 +1,6 @@
-﻿  Address book implementation.vcxproj -> F:\global vs codes\Address book implementation\x64\Debug\Address book implementation.exe
+﻿  contact.c
+F:\global vs codes\Address book implementation\contact.c(113,8): warning C4477: “scanf”: 格式字符串“%d”需要类型“int *”的参数，但可变参数 1 拥有了类型“char *”
+F:\global vs codes\Address book implementation\contact.c(113,8): message : 请考虑在格式字符串中使用“%hhd”
+F:\global vs codes\Address book implementation\contact.c(197,134): warning C4047: “函数”:“_CoreCrtNonSecureSearchSortCompareFunction”与“int”的间接级别不同
+F:\global vs codes\Address book implementation\contact.c(197,62): warning C4024: “qsort”: 形参和实参 4 的类型不同
+  Address book implementation.vcxproj -> F:\global vs codes\Address book implementation\x64\Debug\Address book implementation.exe

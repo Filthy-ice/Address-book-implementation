@@ -4,7 +4,8 @@
 #include <stdio.h>
 #include <string.h>
 #include <assert.h>
-
+#include <stdlib.h>
+#include <search.h>
 
 #define Max 1000
 
@@ -45,8 +46,17 @@ typedef struct Contact
 }C;
 
 //函数声明
+//重置
 void InitContact(C* con);
+//添加
 void AddContact(C* con);
+//展示
 void ShowContact(const C* con);
+//删除
 void DelContact(C* con);
-void SearchContact(C* con);
+//搜索
+void SearchContact(const C* con);
+//修改
+void ModifyContact(C* con);
+//排序，按照名字首字母
+void SortContact(C* xon);
