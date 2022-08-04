@@ -181,20 +181,21 @@ void ModifyContact(C* con)
 }
 
 //qsort用的回调函数
-static int cmp(const void* e1, const void* e2)
+static int cmp_struct(const void* e1, const void* e2)
 {
-	return *(int*)e1 - *(int*)e2;
+	return strcmp(((C*)e1)->date->name, ((C*)e2)->date->name);
 }
 //应用名字首字母排序
 void SortContact(C* con)
 {
 	if (con->size < 1)
 	{
-		printf("通讯录为空，操作无意义。\n");
+		printf("成员太少 或 通讯录为空，操作无意义。\n");
 	}
 	else
 	{
-		qsort((void*)con, con->size, sizeof(con->date[0].name), cmp((void*)con->date[con->size - 1].name, (void*)con->date[con->size].name));
+		qsort(con, con->size, sizeof(con->date[0]), cmp_struct);
+		printf("排序完成。\n");
 	}
 	
 }
