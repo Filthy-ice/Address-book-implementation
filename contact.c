@@ -6,37 +6,85 @@
 //重置结构体数组
 void InitContact(C* con)
 {
-	memset(con->date, 0, sizeof(con->date));//创建的变量结构里面全置0
-	con->size = 0;//表示这个变量里最初只有0个成员。
+	//之前使用的是栈区开辟空间，现在使用动态内存开辟空间。
+	//memset(con->date, 0, sizeof(con->date));//创建的变量结构里面全置0
+	//con->size = 0;//表示这个变量里最初只有0个成员。
+	con->date = (P*)malloc(DEFAULT_sz * sizeof(P));
+	//动态内存开辟必须判断是否开辟成功，避免野指针的出现。
+	if (con->date == NULL)
+	{
+		return;
+	}
+	con->size = 0;
+	con->capacity = DEFAULT_sz;
+}
+
+static void CheckCapacity(C* con)
+{
+	if (con->size == con->capacity)
+	{
+		//增容
+		P* ptr = (P*)realloc(con->date, (con->capacity + 2) * sizeof(P));
+		if (ptr != NULL)
+		{
+			con->date = ptr;
+			con->capacity += 2;
+			printf("增容成功！\n");
+		}
+		else
+		{
+			printf("增容失败。\n");
+		}
+	}
 }
 
 //添加成员数据
 void AddContact(C* con)
 {
-	if (con->size == Max)
-	{
-		printf("通讯录已满。\n");
-	}
-	else
-	{
-		printf("请输入成员姓名:>");
-		scanf("%s", con->date[con->size].name);
+	//由于容量只有DEFAULT_sz是不足以完成程序的。所以，需要一个单独函数增加开辟的内存容量。
+	CheckCapacity(con);//检测当前通讯录的容量。1.如果满了，增加空间；2.如果没满，无操作。
+    printf("请输入成员姓名:>");
+	scanf("%s", con->date[con->size].name);
 
-		printf("请输入%s性别:>",con->date[con->size].name);
-		scanf("%s", con->date[con->size].sex);
+	printf("请输入%s性别:>",con->date[con->size].name);
+	scanf("%s", con->date[con->size].sex);
 		
-		printf("请输入%s年龄:>", con->date[con->size].name);
-		scanf("%d", &(con->date[con->size].age));
+	printf("请输入%s年龄:>", con->date[con->size].name);
+	scanf("%d", &(con->date[con->size].age));
 		
-		printf("请输入%s电话:>", con->date[con->size].name);
-		scanf("%s", con->date[con->size].tele);
+	printf("请输入%s电话:>", con->date[con->size].name);
+	scanf("%s", con->date[con->size].tele);
 		
-		printf("请输入%s住址:>", con->date[con->size].name);
-		scanf("%s", con->date[con->size].addr);
+	printf("请输入%s住址:>", con->date[con->size].name);
+	scanf("%s", con->date[con->size].addr);
 
-		con->size++;
-		printf("添加成功！\n");
-	}
+	con->size++;
+	printf("添加成功！\n");
+	//因为改为动态开辟内存，所以下面代码屏蔽。
+	//if (con->size == Max)
+	//{
+	//	printf("通讯录已满。\n");
+	//}
+	//else
+	//{
+	//	printf("请输入成员姓名:>");
+	//	scanf("%s", con->date[con->size].name);
+
+	//	printf("请输入%s性别:>",con->date[con->size].name);
+	//	scanf("%s", con->date[con->size].sex);
+	//	
+	//	printf("请输入%s年龄:>", con->date[con->size].name);
+	//	scanf("%d", &(con->date[con->size].age));
+	//	
+	//	printf("请输入%s电话:>", con->date[con->size].name);
+	//	scanf("%s", con->date[con->size].tele);
+	//	
+	//	printf("请输入%s住址:>", con->date[con->size].name);
+	//	scanf("%s", con->date[con->size].addr);
+
+	//	con->size++;
+	//	printf("添加成功！\n");
+	//}
 }
 
 //输入完成只显示添加成功，所以我们要打印一下。
@@ -198,4 +246,12 @@ void SortContact(C* con)
 		printf("排序完成。\n");
 	}
 	
+}
+
+
+//退出，销毁通讯录。
+void DestroyContact(C* con)
+{
+	free(con->date);
+	con->date = NULL;
 }

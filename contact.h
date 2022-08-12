@@ -7,8 +7,9 @@
 #include <stdlib.h>
 #include <search.h>
 
-#define Max 1000
-
+//#define Max 1000  //改为动态开辟，那么这个就没用了。
+//开始改写
+#define DEFAULT_sz 3
 
 #define Max_name 20
 #define Max_sex 5
@@ -40,9 +41,10 @@ typedef struct PeoInfo
 //通讯录类型
 typedef struct Contact
 {
-	P date[Max];
+	P* date;//原栈区开辟数组，现使用地址，代码中开辟动态内存。
 	//嵌套使用上面创建的结构体，来创建出来程序所需要的结构体数组。
-	int size;
+	int size;//原最大元素量，现表示数组现有元素。
+	int capacity;//表示数组最大元素。
 }C;
 
 //函数声明
@@ -59,4 +61,7 @@ void SearchContact(const C* con);
 //修改
 void ModifyContact(C* con);
 //排序，按照名字首字母
-void SortContact(C* xon);
+void SortContact(C* con);
+
+//退出，释放动态内存。
+void DestroyContact(C* con);

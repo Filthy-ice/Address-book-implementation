@@ -24,7 +24,7 @@ void menu()
 int main()
 {
 	int input = 0;
-	C con;
+	C con;//调整后，里面取消了1000成员的开辟，存储成了指针。
 	//在.h文件中定义的contact已经包含了1000个成员，所以不需要结构体数组。
 	//InitContact(con);//改进后这个做法作废，因为传参给函数需要结构体数组的地址才能对原数组内数据作出调整，而且节省空间。
 	InitContact(&con);
@@ -54,6 +54,8 @@ int main()
 			SortContact(&con);
 			break;
 		case EXIT:
+			//因为从堆区开辟的动态内存，使用完毕后，需要释放掉占用的内存，所以，我们要在退出的选项里写一个销毁数据(释放内存)的函数。
+			DestroyContact(&con);
 			printf("退出通讯录。\n");
 			break;
 		default:
