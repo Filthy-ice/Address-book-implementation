@@ -25,7 +25,8 @@ enum Option
 	SEARCH,
 	MODIFY,
 	SHOW,
-	SORT
+	SORT,
+	SAVE
 };
 
 //单个成员类型
@@ -50,6 +51,10 @@ typedef struct Contact
 //函数声明
 //重置
 void InitContact(C* con);
+
+//加载数据文件
+void LoadContact(C* con);
+
 //添加
 void AddContact(C* con);
 //展示
@@ -62,6 +67,8 @@ void SearchContact(const C* con);
 void ModifyContact(C* con);
 //排序，按照名字首字母
 void SortContact(C* con);
+//写入文件
+void SaveContact(C* con);
 
 //退出，释放动态内存。
 void DestroyContact(C* con);

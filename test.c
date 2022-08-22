@@ -17,7 +17,7 @@ void menu()
 	printf("******     1.add      2.del     ******\n");
 	printf("******     3.search   4.modify  ******\n");
 	printf("******     5.show     6.sort    ******\n");
-	printf("******                0.exit    ******\n");
+	printf("******     7.save     0.exit    ******\n");
 	printf("**************************************\n");
 }//但是上下翻动写代码觉得有点麻烦，所以我们改为.h里用枚举列举出来。
 
@@ -53,8 +53,13 @@ int main()
 		case SORT:
 			SortContact(&con);
 			break;
+		case SAVE:
+			SaveContact(&con);
+			break;
 		case EXIT:
 			//因为从堆区开辟的动态内存，使用完毕后，需要释放掉占用的内存，所以，我们要在退出的选项里写一个销毁数据(释放内存)的函数。
+			//退出直接写入文件。
+			SaveContact(&con);
 			DestroyContact(&con);
 			printf("退出通讯录。\n");
 			break;

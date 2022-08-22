@@ -17,6 +17,28 @@ void InitContact(C* con)
 	}
 	con->size = 0;
 	con->capacity = DEFAULT_sz;
+	//把数据文件中的信息读取加载到程序里面来。
+	LoadContact(con);
+}
+
+void LoadContact(C* con)
+{
+	P tmp = { 0 };
+	FILE* pfread = fopen("contact.dat", "r");
+	if (pfread == NULL)
+	{
+		printf("LoadContact:%s\n", strerror(errno));
+		return;
+	}
+	//读取文件放入程序
+	while (fread(&tmp, sizeof(P), 1, pfread))
+	{
+		CheckCapacity(con);
+		con->date[con->size] = tmp;
+		con->size++;
+	}
+	fclose(pfread);
+	pfread = NULL;
 }
 
 static void CheckCapacity(C* con)
@@ -248,7 +270,22 @@ void SortContact(C* con)
 	
 }
 
-
+//写入文件
+void SaveContact(C* con)
+{
+	FILE* pfwrite = fopen("contact.dat", "wb");
+	if (pfwrite == NULL)
+	{
+		return;
+	}
+	int i = 0;
+	for (i = 0; i < con->size; i++)
+	{
+		fwrite(&(con->date[i]), sizeof(P), 1, fwrite);
+	}
+	fclose(pfwrite);
+	pfwrite = NULL;
+}
 //退出，销毁通讯录。
 void DestroyContact(C* con)
 {
